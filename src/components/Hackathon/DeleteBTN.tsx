@@ -1,28 +1,39 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { useState } from 'react';
 
-function DeleteBTN() {
-  return (
-    <div
-      className="modal show"
-      style={{ display: 'block', position: 'initial' }}
-    >
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>Xác nhận</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <p>Bạn có chắc chắn muốn xoá kho này không ?</p>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary">Huỷ</Button>
-          <Button variant="primary">Xoá</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
-    </div>
-  );
+interface Props {
+  onConfirm: () => void;
 }
+
+const DeleteBTN: React.FC<Props> = ({ onConfirm }) => {
+  const [show, setShow] = useState(false);
+
+  return (
+    <>
+      <button className="btn btn-sm btn-outline-danger" onClick={() => setShow(true)}>Xóa</button>
+      {show && (
+        <div className="modal fade show d-block" tabIndex={-1} style={{ background: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Xác nhận</h5>
+                <button type="button" className="btn-close" onClick={() => setShow(false)}></button>
+              </div>
+              <div className="modal-body">
+                Bạn có chắc chắn muốn xóa kho này không?
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-secondary" onClick={() => setShow(false)}>Hủy</button>
+                <button className="btn btn-danger" onClick={() => { onConfirm(); setShow(false); }}>Xóa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default DeleteBTN;
+
 
 export default DeleteBTN;
