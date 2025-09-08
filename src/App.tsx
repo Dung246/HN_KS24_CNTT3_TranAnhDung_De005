@@ -5,6 +5,13 @@ import Header from './components/Hackathon/Header';
 import Main from './components/Hackathon/Main';
 import Footer from './components/Hackathon/Footer';
 import DeleteBTN from './components/Hackathon/DeleteBTN';
+interface Warehouse {
+  id: number;
+  name: string;
+  address: string;
+  status: 'Hoạt động' | 'Ngừng hoạt động';
+}
+
 const App = () => {
   const [warehouses, setWarehouses] = useState<Warehouse[]>([
     {
